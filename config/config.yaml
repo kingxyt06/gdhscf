@@ -1,0 +1,15 @@
+BASE:
+  dev:
+    agw-url: "https://gdhscf-agw.lianyirong.com.cn/"
+    sp-url: "https://gdhscf-sp.lianyirong.com.cn/"
+    redis-url: "dev-redis.lls.com"
+    agw_message:
+      username: "13611113333"
+      password: "pNuyA/NW0/XwPqb7m1X5slil21SAAQFtKp13+iFQnPaSQsOPYdvx3ikE5nJOYH7QFNzNimVlWM4qeIVOaB+Zo2bluNaI4+TQWSGO7aUxe2yd31bnSEepp9v4EcRxkuSdM4tHN+306mX99tnrfRUWSUAoTOFqEz8KhAglSnYaaZKR5snVBDLrpLmf9HSu6H3W8SpNDJZNE99uSedrPAvtxbQI270qovj6eGqn4dZuHReViNnXXikbuwMXyFQhrwEzGfTCxfvYyqGmrnLnTXghWY16JvDioWKZSzd8VEXtlB56VDCUOQQA+zDRZRK8s8oBM4DiGNsf8YDuPXy3ix3QyA=="
+  test:
+    agw-url: "https://gdhscf-agw.qhhrly.cn/"
+    sp-url: "https://gdhscf-sp.qhhrly.cn/"
+    redis-url: "qa-redis.lls.com"
+    agw_message:
+      username: "13049052631"
+      password: "laLI/jns+7N1qjE0W1BoNski8xHXXuk1Oii/05l8aw+qSQpuliMIl4dh2Jsbe5aAlP4U76fg4Pl8wjJa69DSk7k5lzNO8TiWtK4O/5Depj5jW0uKKjS3AHKyBcMeVWmP+bDaixp8ztjUXBaf2SKSsLhledk+PXAPcfHo1fxp0cPWcJSGTaJixdIDolHq09+YzE4V5CwHRxQErykjYB5HTzMUJqG/i3/LJQlyQ/99eaxE7eX9kLu3hYIrWsxvjS6WSh/bs4iE6Q21axs6S+Jl0YcobsLpGrVvQh5Cn8rQ4EfD68MbzPBx/GG5/EoXQ9zQlLkDVKnJpOUTYZx8p/SWOg=="
