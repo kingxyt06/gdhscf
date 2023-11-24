@@ -28,7 +28,7 @@ class ConfigReader:
     def __init__(self):
         self.config_file = config_path + os.sep + "config.yaml"
         self.config = YamlReader(self.get_config_file()).data()
-        self.env = 'dev'
+        self.env = 'qa'
 
     def get_config_file(self):
         return config_file
@@ -36,50 +36,50 @@ class ConfigReader:
     def get_conf_agw_url(self):
         if self.env == 'dev':
             agw_url = self.config['BASE']['dev']['agw-url']
-        elif self.env == 'test':
-            agw_url = self.config['BASE']['test']['agw-url']
+        elif self.env == 'qa':
+            agw_url = self.config['BASE']['qa']['agw-url']
         return agw_url
 
     def get_conf_sp_url(self):
         if self.env == 'dev':
             sp_url = self.config['BASE']['dev']['sp-url']
-        elif self.env == 'test':
-            sp_url = self.config['BASE']['test']['sp-url']
+        elif self.env == 'qa':
+            sp_url = self.config['BASE']['qa']['sp-url']
         return sp_url
 
     def get_conf_redis(self):
         if self.env == 'dev':
             redis_url = self.config['BASE']['dev']['redis-url']
-        elif self.env == 'test':
-            redis_url = self.config['BASE']['test']['redis-url']
+        elif self.env == 'qa':
+            redis_url = self.config['BASE']['qa']['redis-url']
         return redis_url
 
     def get_agw_username(self):
         if self.env == 'dev':
             username = self.config['BASE']['dev']['agw_message']['username']
-        elif self.env == 'test':
-            username = self.config['BASE']['test']['agw_message']['username']
+        elif self.env == 'qa':
+            username = self.config['BASE']['qa']['agw_message']['username']
         return username
 
     def get_agw_pwd(self):
         if self.env == 'dev':
             password = self.config['BASE']['dev']['agw_message']['password']
-        elif self.env == 'test':
-            password = self.config['BASE']['test']['agw_message']['password']
+        elif self.env == 'qa':
+            password = self.config['BASE']['qa']['agw_message']['password']
         return password
 
-    def get_sp_username(self,type):
-        if type == 'qy':
-            username = self.config['BASE']['test']['sp_message_qy']['username']
-        elif type == 'gys':
-            username = self.config['BASE']['test']['sp_message_gys']['username']
+    def get_qy_username(self):
+        if self.env == 'dev':
+            username = self.config['BASE']['dev']['sp_qy_message']['username']
+        elif self.env == 'qa':
+            username = self.config['BASE']['qa']['sp_qy_message']['username']
         return username
 
-    def get_sp_pwd(self,type):
-        if type == 'qy':
-            password = self.config['BASE']['test']['sp_message_qy']['password']
-        elif type == 'gys':
-            password = self.config['BASE']['test']['sp_message_gys']['password']
+    def get_qy_pwd(self):
+        if self.env == 'dev':
+            password = self.config['BASE']['dev']['sp_qy_message']['password']
+        elif self.env == 'qa':
+            password = self.config['BASE']['qa']['sp_qy_message']['password']
         return password
 
 

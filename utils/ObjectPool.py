@@ -20,9 +20,6 @@ class ObjectPool:
 
 
 
-
-
-
 # if __name__ == '__main__':
 #     pools = ObjectPool()
 #     r = RequestsUtil()

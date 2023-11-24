@@ -7,11 +7,21 @@ class RequestsUtil:
 
     def __init__(self, url_type="agw"):
         self.url_type = url_type
-        self.agw_ip = ConfigReader().get_conf_agw_url()
-        print("\n当前内管端域名:"+self.agw_ip)
-        self.sp_ip = ConfigReader().get_conf_sp_url()
-        print("当前客户端域名:" + self.sp_ip)
+        # self.agw_ip = ConfigReader().get_conf_agw_url()
+        # print("\n当前内管端域名:"+self.agw_ip)
+        # self.sp_ip = ConfigReader().get_conf_sp_url()
+        # print("当前客户端域名:" + self.sp_ip)
+        # self.session = requests.session()
+        if  self.url_type == "agw":
+            self.agw_ip = ConfigReader().get_conf_agw_url()
+            print("\n当前内管端域名:" + self.agw_ip)
+        else:
+            self.sp_ip = ConfigReader().get_conf_sp_url()
+            print("当前客户端域名:" + self.sp_ip)
         self.session = requests.session()
+
+
+
 
     def visit(self, method, url, params=None, data=None, json=None, cookies=None, headers=None, **kwargs):
         if self.url_type == 'agw':

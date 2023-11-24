@@ -88,9 +88,11 @@ from utils.RequestsUtil import RequestsUtil
 def init_pools():
     pools = ObjectPool()
     # 实例化两个类，并放进去
-    r = RequestsUtil()
+    req_agw = RequestsUtil(url_type="agw")
+    req_sp = RequestsUtil(url_type="sp")
     c = ConfigReader()
-    pools.add_object({'reqU':r})
+    pools.add_object({'reqA':req_agw})
+    pools.add_object({'reqS':req_sp})
     pools.add_object({'confU':c})
     print(f"------------初始化对象池啦-----------:\n{pools.pool}")
     return pools
@@ -108,9 +110,12 @@ def init_pools():
 #     return pools_list
 
 @pytest.fixture(scope="session", autouse=True)
-def req_utill(init_pools):
-    return init_pools.get_object('reqU')
+def req_AGW(init_pools):
+    return init_pools.get_object('reqA')
 
+@pytest.fixture(scope="session", autouse=True)
+def req_SP(init_pools):
+    return init_pools.get_object('reqS')
 
 @pytest.fixture(scope="session", autouse=True)
 def conf_utill(init_pools):
@@ -131,15 +136,15 @@ def conf_utill(init_pools):
 
 
 @pytest.fixture(scope="session")
-def get_agw_token(init_pools,req_utill,conf_utill):
-    print("\n前置步骤----获取登录cookie")
+def get_agw_token(init_pools,req_AGW,conf_utill):
+    print("\n前置步骤----获取内管端cookie")
     global token
     # print(object_pools.get('confU'))
     redis_url = conf_utill.get_conf_redis()
     rds = Redis(host=redis_url, port='6379', password='', decode_responses=True, db=116)
     captcha_data = {'timestamp': int(round(time.time() * 1000))}
     url = "tools-web/captcha/code/get"
-    res = req_utill.visit(method="GET", url=url, params=captcha_data)
+    res = req_AGW.visit(method="GET", url=url, params=captcha_data)
     picCheckCodeKey = res.cookies.get_dict()['CAPTCHAID']
     # print(res.cookies.get_dict())
     picCheckCode = rds.get(picCheckCodeKey)[1:5]
@@ -154,12 +159,42 @@ def get_agw_token(init_pools,req_utill,conf_utill):
     headers = {'Content-Type': 'application/json;charset=UTF-8', 'Content-Length': '0'}
     cookies = {'CAPTCHAID': picCheckCodeKey}
     login_url = "sys-web/user/login"
-    login_res = req_utill.visit(method="POST", url=login_url, json=login_params, headers=headers,
+    login_res = req_AGW.visit(method="POST", url=login_url, json=login_params, headers=headers,
                         cookies=cookies)
     # print(login_res.json())
     token = login_res.cookies
     print("登录成功----获取token成功")
     return token
 
+@pytest.fixture(scope="session")
+def get_sp_token_qy(init_pools,req_SP,conf_utill):
+    print("\n前置步骤----获取核心企业cookie")
+    global qy_token
+    redis_url = conf_utill.get_conf_redis()
+    rds = Redis(host=redis_url, port='6379', password='', decode_responses=True, db=116)
+    captcha_data = {'timestamp': int(round(time.time() * 1000))}
+    url = "tools-web/captcha/code/get"
+    res = req_SP.visit(method="GET", url=url, params=captcha_data)
+    picCheckCodeKey = res.cookies.get_dict()['CAPTCHAID']
+    # print(res.cookies.get_dict())
+    picCheckCode = rds.get(picCheckCodeKey)[1:5]
+    print("登陆验证码为 : " + picCheckCode)
+    username = conf_utill.get_qy_username()
+    password = conf_utill.get_qy_pwd()
+    login_params = {
+        "password": password,
+        "picCheckCode": picCheckCode,
+        "userName": username
+    }
+    headers = {'Content-Type': 'application/json;charset=UTF-8', 'Content-Length': '0'}
+    cookies = {'CAPTCHAID': picCheckCodeKey}
+    login_url = "sys-web/user/login"
+    login_res = req_SP.visit(method="POST", url=login_url, json=login_params, headers=headers,
+                              cookies=cookies)
+    # print(login_res.json())
+    qy_token = login_res.cookies
+    print("登录成功----获取token成功")
+    return qy_token
+
 # if __name__ == '__main__':
-#     get_agw_token()
+#     recover_data()
