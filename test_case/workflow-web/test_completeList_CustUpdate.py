@@ -18,8 +18,8 @@ class TestCompleteList_CustUpdate:
     @pytest.mark.parametrize("appNo", appNo)
     @pytest.mark.parametrize("companyName", companyName)
     @pytest.mark.parametrize("taskDefKeyList", new_taskDefKey)
-    def test_CustUpdate(self,get_agw_token,req_AGW,appNo, companyName, taskDefKeyList):
-        #审批结果查询-企业变更查询-正向参数组合
+    def test_CustUpdate(self, get_agw_token, req_AGW, appNo, companyName, taskDefKeyList):
+        # 审批结果查询-企业变更查询-正向参数组合
         cookies = get_agw_token
         r = req_AGW
         url = "workflow-web/wkfl/export/listCompleteData"
@@ -34,7 +34,7 @@ class TestCompleteList_CustUpdate:
                 "appTypeList": [
                     "zrCustSelfApply", "zrCustApplyNonAutoUpdate"
                 ],
-                "taskDefKeyList": (lambda x: [x,] if isinstance(x, str) else x)(taskDefKeyList)
+                "taskDefKeyList": (lambda x: [x, ] if isinstance(x, str) else x)(taskDefKeyList)
             }
         }
 
@@ -62,7 +62,7 @@ class TestCompleteList_CustUpdate:
                 "appTypeList": [
                     "zrCustSelfApply", "zrCustApplyNonAutoUpdate"
                 ],
-                "taskDefKeyList": (lambda x: [x,] if isinstance(x, str) else x)(taskDefKeyList)
+                "taskDefKeyList": (lambda x: [x, ] if isinstance(x, str) else x)(taskDefKeyList)
             }
         }
         res = r.visit(method="POST", url=url, cookies=cookies, json=req_json)
@@ -70,8 +70,6 @@ class TestCompleteList_CustUpdate:
         res = json.loads(res.text)
         print(res)
         assert res['data']['total'] == '0'
-
-
 
     @pytest.mark.parametrize("taskDefKeyList", new_taskDefKey)
     def test_NotExistAppNo(self, get_agw_token, req_AGW, taskDefKeyList):
@@ -91,7 +89,7 @@ class TestCompleteList_CustUpdate:
                 "appTypeList": [
                     "zrCustSelfApply", "zrCustApplyNonAutoUpdate"
                 ],
-                "taskDefKeyList": (lambda x: [x,] if isinstance(x, str) else x)(taskDefKeyList)
+                "taskDefKeyList": (lambda x: [x, ] if isinstance(x, str) else x)(taskDefKeyList)
             }
         }
         res = r.visit(method="POST", url=url, cookies=cookies, json=req_json)

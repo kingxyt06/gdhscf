@@ -14,22 +14,6 @@ class TestCompleteList_CustApply:
         for j in range(i + 1, len(taskDefKeyList)):
             new_taskDefKey += ([taskDefKeyList[i], taskDefKeyList[j]],)
 
-    com_json = {
-        "current": 1,
-        "size": 10,
-        "queryCondition": {
-            "appNo": "",
-            "extData": {
-                "ext1": ""
-            },
-            "appTypeList": [
-                "zrCustSelfApply", "zrCustApplyNonAuto"
-            ],
-            "taskDefKeyList": []
-        }
-    }
-
-
     @pytest.mark.parametrize("appNo", appNo)
     @pytest.mark.parametrize("companyName", companyName)
     @pytest.mark.parametrize("taskDefKeyList", new_taskDefKey)
@@ -50,7 +34,7 @@ class TestCompleteList_CustApply:
                 "appTypeList": [
                     "zrCustSelfApply", "zrCustApplyNonAuto"
                 ],
-                "taskDefKeyList": (lambda x: [x,] if isinstance(x, str) else x)(taskDefKeyList)
+                "taskDefKeyList": (lambda x: [x, ] if isinstance(x, str) else x)(taskDefKeyList)
             }
         }
 
@@ -62,7 +46,7 @@ class TestCompleteList_CustApply:
 
     @pytest.mark.parametrize("taskDefKeyList", new_taskDefKey)
     def test_NotExistCust(self, get_agw_token, req_AGW, taskDefKeyList):
-        #审批结果查询-建档审核查询-输入不存在的企业名称查询
+        # 审批结果查询-建档审核查询-输入不存在的企业名称查询
         NotExistCust = "#$@%!^#"
         cookies = get_agw_token
         r = req_AGW
@@ -78,7 +62,7 @@ class TestCompleteList_CustApply:
                 "appTypeList": [
                     "zrCustSelfApply", "zrCustApplyNonAuto"
                 ],
-                "taskDefKeyList": (lambda x: [x,] if isinstance(x, str) else x)(taskDefKeyList)
+                "taskDefKeyList": (lambda x: [x, ] if isinstance(x, str) else x)(taskDefKeyList)
             }
         }
         res = r.visit(method="POST", url=url, cookies=cookies, json=req_json)
@@ -87,34 +71,37 @@ class TestCompleteList_CustApply:
         print(res)
         assert res['data']['total'] == '0'
 
-    @pytest.mark.parametrize("taskDefKeyList", new_taskDefKey)
-    @pytest.mark.parametrize("com_json",com_json)
-    def test_test_NotExistAppNo(self,get_agw_token,req_AGW,taskDefKeyList,com_json):
+
+
+    # @pytest.mark.parametrize("com_json", com_json)
+    @pytest.mark.parametrize("new_taskDefKey", new_taskDefKey)
+    def test_test_NotExistAppNo(self, get_agw_token, req_AGW, new_taskDefKey):
         # 审批结果查询-建档审核查询-输入不存在appNo
         NotExistAppNo = "299911241000005691"
         cookies = get_agw_token
         r = req_AGW
         url = "workflow-web/wkfl/export/listCompleteData"
-        # req_json = {
-        #     "current": 1,
-        #     "size": 10,
-        #     "queryCondition": {
-        #         "appNo": NotExistAppNo,
-        #         "extData": {
-        #             "ext1": ""
-        #         },
-        #         "appTypeList": [
-        #             "zrCustSelfApply", "zrCustApplyNonAuto"
-        #         ],
-        #         "taskDefKeyList": (lambda x: [x,] if isinstance(x, str) else x)(taskDefKeyList)
-        #     }
-        # }
-        com_json['queryCondition']['taskDefKeyList'].update((lambda x: [x,] if isinstance(x, str) else x)(taskDefKeyList))
+        req_json = {
+            "current": 1,
+            "size": 10,
+            "queryCondition": {
+                "appNo": NotExistAppNo,
+                "extData": {
+                    "ext1": ""
+                },
+                "appTypeList": [
+                    "zrCustSelfApply", "zrCustApplyNonAuto"
+                ],
+                "taskDefKeyList": (lambda x: [x,] if isinstance(x, str) else x)(new_taskDefKey)
+            }
+        }
+
+        # json.loads(com_json)
+        # com_json['queryCondition']['appNo'] = NotExistAppNo
+        # com_json['queryCondition']['taskDefKeyList'] = (lambda x: [x, ] if isinstance(x, str) else x)(new_taskDefKey)
 
         res = r.visit(method="POST", url=url, cookies=cookies, json=req_json)
         print(res.request.body)
         res = json.loads(res.text)
         print(res)
         assert res['data']['total'] == '0'
-
-

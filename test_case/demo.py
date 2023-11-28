@@ -5,15 +5,15 @@ if __name__ == '__main__':
                       "loan_cash_asset_check",
                       "loan_cash_risk_review"
                       ]
-
-    result = ()
-
-    for key in taskDefKeyList:
-        result += (key,)
-    for i in range(len(taskDefKeyList)):
-        for j in range(i + 1, len(taskDefKeyList)):
-            result +=([taskDefKeyList[i], taskDefKeyList[j]],)
-    print(result)
+    #
+    # result = ()
+    #
+    # for key in taskDefKeyList:
+    #     result += (key,)
+    # for i in range(len(taskDefKeyList)):
+    #     for j in range(i + 1, len(taskDefKeyList)):
+    #         result +=([taskDefKeyList[i], taskDefKeyList[j]],)
+    # print(result)
 
     com_json = {
         "current": 1,
@@ -26,8 +26,10 @@ if __name__ == '__main__':
             "appTypeList": [
                 "zrCustSelfApply", "zrCustApplyNonAuto"
             ],
-            "taskDefKeyList": []
+            "taskDefKeyList": ""
         }
     }
-
+    # com_json.update({"queryCondition":{"taskDefKeyList": (lambda x: [x, ] if isinstance(x, str) else x)(taskDefKeyList)}})
+    com_json['queryCondition']['taskDefKeyList']=(lambda x: [x,] if isinstance(x, str) else x)(taskDefKeyList)
+    print(com_json['queryCondition']['taskDefKeyList'])
     print(type(com_json))
