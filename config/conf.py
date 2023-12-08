@@ -54,6 +54,15 @@ class ConfigReader:
             redis_url = self.config['BASE']['qa']['redis-url']
         return redis_url
 
+    def get_conf_mysql(self):
+        if self.env == 'dev':
+            mysql_url = self.config['BASE']['dev']['mysql-url']
+        elif self.env == 'qa':
+            mysql_url = self.config['BASE']['qa']['mysql-url']
+        return mysql_url
+
+
+
     def get_agw_username(self):
         if self.env == 'dev':
             username = self.config['BASE']['dev']['agw_message']['username']
@@ -91,11 +100,12 @@ class ConfigReader:
         return self.config['BASE']['test']['testCompanyMessage']
 
     def get_conf_SqlMessage(self):
-        return self.config['BASE']['test']['MySql-Config']
+        return self.config['BASE']['qa']['MySql-Config']
 
 if __name__ == '__main__':
-    r = ConfigReader()
-    url = r.get_conf_agw_url(env='test')
-    print(url)
+    # r = ConfigReader()
+    # url = r.get_conf_mysql()
+    sqlConf = ConfigReader().get_conf_SqlMessage()
+    print(sqlConf['mysql-url'])
     # print(r.get_conf_sp_url())
 

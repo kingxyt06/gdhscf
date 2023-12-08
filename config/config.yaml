@@ -44,6 +44,18 @@ BASE:
     agw-url: "https://gdhscf-agw.qhhrly.cn/"
     sp-url: "https://gdhscf-sp.qhhrly.cn/"
     redis-url: "qa-redis.lls.com"
+    MySql-Config:
+      mysql-url: "mysql01.qa.lls.com"
+      mysql-user: "root"
+      mysql-pwd: 123456
+    agw_message:
+      username: "13049052666"
+      password: "KJUWSFjt+kW5g+Irb9EVOmpFgqz66DdMHBFETmun4p2VtA1XAo92JpuZFhjKeDRmnNfP4SCxZEyXCSpgBFERmOrLI6eoxtxLYpwCjCs2Ev6yR82ZSooCUJGYIeBz6eNuq+sn84Sf5XrmW+fBsIekDlyzaZOoaBqoK0Jz/es0KWhQG/6JfGXEXh+hV5FDx8+9lgDuoIIwpuiUTZcchLT0teH9vXs8NCNcUNmrd8I9EGDegILkUea62TJUJhdQ1ZU70WgOazRCcz/trele1goX/Xrzlrs/3AuOcyrPE9/sVBDSFdzFGEhMiAo0FlvULTQ9zbCaKJKiQSqtcIdZbDiqyg=="
+
+  uat:
+    agw-url: "https://testagw.gdhchain.com.cn/"
+    sp-url: "https://testpc.gdhchain.com.cn/"
+    redis-url: "qa-redis.lls.com"
     agw_message:
       username: "13049052666"
       password: "KJUWSFjt+kW5g+Irb9EVOmpFgqz66DdMHBFETmun4p2VtA1XAo92JpuZFhjKeDRmnNfP4SCxZEyXCSpgBFERmOrLI6eoxtxLYpwCjCs2Ev6yR82ZSooCUJGYIeBz6eNuq+sn84Sf5XrmW+fBsIekDlyzaZOoaBqoK0Jz/es0KWhQG/6JfGXEXh+hV5FDx8+9lgDuoIIwpuiUTZcchLT0teH9vXs8NCNcUNmrd8I9EGDegILkUea62TJUJhdQ1ZU70WgOazRCcz/trele1goX/Xrzlrs/3AuOcyrPE9/sVBDSFdzFGEhMiAo0FlvULTQ9zbCaKJKiQSqtcIdZbDiqyg=="
