@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import time
 
 import allure
@@ -12,7 +13,6 @@ from config.conf import ConfigReader
 from utils.MysqlUtil import MySQLClient
 from utils.ObjectPool import ObjectPool
 from utils.RequestsUtil import RequestsUtil
-
 
 # from utils.SqlUtil import MysqlDb
 # from utils.common import CommonUtil
@@ -82,6 +82,7 @@ from utils.RequestsUtil import RequestsUtil
 #     mysql_db.execute_db(f"delete from apply_sub_limit where limit_apply_no='%s'" % rsp['data']['limitApplyNo'])
 #     mysql_db.execute_db(f"delete from limit_info where app_lmt_no ='%s'" % rsp['data']['limitApplyNo'])
 #     mysql_db.execute_db(f"delete from limit_info where parent_lmt_no ='%s'" % rsp['data']['limitApplyNo'])
+from utils.YamlUtil import YamlReader
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -131,6 +132,7 @@ def req_SP(init_pools):
 def conf_utill(init_pools):
     return init_pools.get_object('confU')
 
+
 @pytest.fixture(scope="session", autouse=True)
 def sql_utill(init_pools):
     return init_pools.get_object('sqlU')
@@ -148,21 +150,23 @@ def sql_utill(init_pools):
 #     return pools
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session",autouse=True)
 def get_agw_token(init_pools, req_AGW, conf_utill):
     print("\n前置步骤----获取内管端cookie")
     global token
     # print(object_pools.get('confU'))
     redis_url = conf_utill.get_conf_redis()
-    rds = Redis(host=redis_url, port='6379', password='', decode_responses=True, db=116)
+    redis_db = conf_utill.get_redis_db()
+    rds = Redis(host=redis_url, port='6379', password='', decode_responses=True, db=redis_db)
     captcha_data = {'timestamp': int(round(time.time() * 1000))}
     url = "tools-web/captcha/code/get"
     res = req_AGW.visit(method="GET", url=url, params=captcha_data)
     picCheckCodeKey = res.cookies.get_dict()['CAPTCHAID']
-    # print(type(picCheckCodeKey))
-    # print(picCheckCodeKey)
-    # print(res.cookies.get_dict())
-    picCheckCode = rds.get(picCheckCodeKey)[1:5]
+
+    # picCheckCode = rds.get(picCheckCodeKey)[1,5]
+    rdsV = rds.get(picCheckCodeKey)
+    picCheckCode = re.sub(r'"', '', rdsV)
+
     print("登陆验证码为 : " + picCheckCode)
     username = conf_utill.get_agw_username()
     password = conf_utill.get_agw_pwd()
@@ -178,7 +182,13 @@ def get_agw_token(init_pools, req_AGW, conf_utill):
                               cookies=cookies)
     # print(login_res.json())
     token = login_res.cookies
+    token = {"cookie":
+                 f"bccpgdhscfdate={token.get('bccpgdhscfdate')};"
+                 f"CURRENT-LOGIN={token.get('CURRENT-LOGIN')};"
+                 f"bccpgdhscf={token.get('bccpgdhscf')}"}
+
     print("登录成功----获取token成功")
+    YamlReader().write_yaml(token)
     return token
 
 

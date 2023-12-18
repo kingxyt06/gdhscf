@@ -3,6 +3,7 @@ BASE:
     agw-url: "https://gdhscf-agw.lianyirong.com.cn/"
     sp-url: "https://gdhscf-sp.lianyirong.com.cn/"
     redis-url: "dev-redis.lls.com"
+    redis-db: 116
     agw_message:
       username: "13611113333"
       password: "pNuyA/NW0/XwPqb7m1X5slil21SAAQFtKp13+iFQnPaSQsOPYdvx3ikE5nJOYH7QFNzNimVlWM4qeIVOaB+Zo2bluNaI4+TQWSGO7aUxe2yd31bnSEepp9v4EcRxkuSdM4tHN+306mX99tnrfRUWSUAoTOFqEz8KhAglSnYaaZKR5snVBDLrpLmf9HSu6H3W8SpNDJZNE99uSedrPAvtxbQI270qovj6eGqn4dZuHReViNnXXikbuwMXyFQhrwEzGfTCxfvYyqGmrnLnTXghWY16JvDioWKZSzd8VEXtlB56VDCUOQQA+zDRZRK8s8oBM4DiGNsf8YDuPXy3ix3QyA=="
@@ -44,6 +45,7 @@ BASE:
     agw-url: "https://gdhscf-agw.qhhrly.cn/"
     sp-url: "https://gdhscf-sp.qhhrly.cn/"
     redis-url: "qa-redis.lls.com"
+    redis-db: 116
     MySql-Config:
       mysql-url: "mysql01.qa.lls.com"
       mysql-user: "root"
@@ -51,6 +53,14 @@ BASE:
     agw_message:
       username: "13049052666"
       password: "KJUWSFjt+kW5g+Irb9EVOmpFgqz66DdMHBFETmun4p2VtA1XAo92JpuZFhjKeDRmnNfP4SCxZEyXCSpgBFERmOrLI6eoxtxLYpwCjCs2Ev6yR82ZSooCUJGYIeBz6eNuq+sn84Sf5XrmW+fBsIekDlyzaZOoaBqoK0Jz/es0KWhQG/6JfGXEXh+hV5FDx8+9lgDuoIIwpuiUTZcchLT0teH9vXs8NCNcUNmrd8I9EGDegILkUea62TJUJhdQ1ZU70WgOazRCcz/trele1goX/Xrzlrs/3AuOcyrPE9/sVBDSFdzFGEhMiAo0FlvULTQ9zbCaKJKiQSqtcIdZbDiqyg=="
+  v2:
+    agw-url: "https://gdhscf-v2-agw.lianyirong.com.cn/"
+    sp-url: "https://gdhscf-v2-sp.lianyirong.com.cn/"
+    redis-url: "dev-redis.lls.com"
+    redis-db: 129
+    agw_message:
+      username: "13611113333"
+      password: "QvaNA4ZSkZkkig1jmMKXTIivQqWWjA3Ihb0i2dYvLJDAGQ+WnAnGgY++zMk/KjL+6YHMNMSblrCz18iwprEm2ttYJWtGby5q6M44knD0AAfRUiafmqMn8CL6Xm0zcgI2VUwts/vqe7oxxjnGt8LtVM2Ok6cQJVbkVy6JIOjfUQa576HN8VsF/jRagwS9ncysi43ADNLyRXtyErbhnazRRamn7bUn/oBpiMrUztxYhy/lTA2ZRt6KKl9sQlis4/rCnIPPS9oZQBQhcfyGDBHdXuRFh7S5g3Ng6RNzT3Zf8RvcnHkxykhRgNIxQKCvbkKSdWG8tI6Aa1J5MAEt0Jckvg=="
 
   uat:
     agw-url: "https://testagw.gdhchain.com.cn/"

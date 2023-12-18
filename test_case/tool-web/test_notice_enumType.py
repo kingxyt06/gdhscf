@@ -1,10 +1,11 @@
-# 测试公告查询页面的枚举值
+
 import json
 
 import pytest
 
 
 class TestEnumType_notice:
+    # 测试公告查询页面的枚举值
     req_data = (
         {'enumType': "NoticeStatusEnum"}, {'enumType': 'NoticeAuditStatusEnum'},
         {'enumType': 'NoticePublishingObjEnum'})
