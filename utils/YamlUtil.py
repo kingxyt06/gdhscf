@@ -30,6 +30,12 @@ class YamlReader:
                 self._data_all = yaml.safe_load_all(f)
                 return self._data_all
 
+    def read_yaml(self, key):
+        with open(os.getcwd() + '/extract.yaml', encoding='utf-8', mode='r') as f:
+            value = yaml.load(f, yaml.FullLoader)
+            return value[key]
+
+
     def write_yaml(self, data):
         with open(os.getcwd() + '/extract.yaml', mode="a") as f:
             yaml.dump(data, stream=f, allow_unicode=True)

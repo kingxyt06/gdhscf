@@ -182,13 +182,13 @@ def get_agw_token(init_pools, req_AGW, conf_utill):
                               cookies=cookies)
     # print(login_res.json())
     token = login_res.cookies
-    token = {"cookie":
+    token = {"cookies":
                  f"bccpgdhscfdate={token.get('bccpgdhscfdate')};"
                  f"CURRENT-LOGIN={token.get('CURRENT-LOGIN')};"
                  f"bccpgdhscf={token.get('bccpgdhscf')}"}
 
     print("登录成功----获取token成功")
-    YamlReader().write_yaml(token)
+    YamlReader().write_yaml({"cookies":token})
     return token
 
 
