@@ -53,6 +53,13 @@ BASE:
     agw_message:
       username: "13049052666"
       password: "KJUWSFjt+kW5g+Irb9EVOmpFgqz66DdMHBFETmun4p2VtA1XAo92JpuZFhjKeDRmnNfP4SCxZEyXCSpgBFERmOrLI6eoxtxLYpwCjCs2Ev6yR82ZSooCUJGYIeBz6eNuq+sn84Sf5XrmW+fBsIekDlyzaZOoaBqoK0Jz/es0KWhQG/6JfGXEXh+hV5FDx8+9lgDuoIIwpuiUTZcchLT0teH9vXs8NCNcUNmrd8I9EGDegILkUea62TJUJhdQ1ZU70WgOazRCcz/trele1goX/Xrzlrs/3AuOcyrPE9/sVBDSFdzFGEhMiAo0FlvULTQ9zbCaKJKiQSqtcIdZbDiqyg=="
+    sp_qy_message:
+      username: "13902065833"
+      password: "SUUVEwJs8fJfsxo43gNkJkmWGenN8erzHoeBnpVqf3v0vX9QHnoObWoWgVH253xiZozhU9r7etV87V84Fq2LmmYJlB8Wh/t2Meprf+Z8j2yiCt6ILzdTNtp+zpbYndBOhJe3OCylzyjHK+jz1hXEoYHXUuymu3cw0cbiaJjr52BqjJqyhlpzYUysIqclnBJ8WmB+OHu2aDv3QG+DtFTvPwI0lHYkxxzxKuQ0Iix4fALh4yGW1T+CgxJ6oqnmkZslZt25fAgyHF+Px50Yf7kanNa6SNyLgAcMgQILgN42AtiEoCf2kiNcywF3iKomBnboGG5CpRW/UVhSngIwXseLSw=="
+
+
+
+
   v2:
     agw-url: "https://gdhscf-v2-agw.lianyirong.com.cn/"
     sp-url: "https://gdhscf-v2-sp.lianyirong.com.cn/"

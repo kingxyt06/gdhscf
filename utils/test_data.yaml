@@ -1,9 +1,9 @@
-- case: 邮件-查询页面
+  case: "邮件-查询页面"
   http:
-    method: POST
-    url: message-web/messageEmailLog/pageInfo
+    method: "POST"
+    url: "message-web/messageEmailLog/pageInfo"
     cookies: ${cookies}
-    params:
-      {"current": 1, "size": 10, "queryCondition": {}}
-  expected:
-    code: 200
+    json:
+      current: 1
+      size: 10
+      queryCondition: {}

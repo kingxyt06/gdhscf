@@ -29,7 +29,7 @@ class ConfigReader:
     def __init__(self):
         self.config_file = config_path + os.sep + "config.yaml"
         self.config = YamlReader().load_data(self.get_config_file())
-        self.env = 'v2'
+        self.env = 'qa'
 
     def get_config_file(self):
         return config_file

@@ -1,10 +1,9 @@
-- case: 邮件-查询页面
+- method: "POST"
   http:
-    url: https://gdhscf-v2-agw.lianyirong.com.cn
-    method: POST
-    path: /message-web/messageEmailLog/pageInfo
+    url: "message-web/messageEmailLog/pageInfo"
+    client: "agw"
     cookies: ${cookies}
-    params:
-      {"current": 1, "size": 10, "queryCondition": {}}
-  expected:
-    code: 200
+    json:
+      current: 1
+      size: 10
+      queryCondition: { }

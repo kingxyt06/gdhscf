@@ -188,11 +188,11 @@ def get_agw_token(init_pools, req_AGW, conf_utill):
                  f"bccpgdhscf={token.get('bccpgdhscf')}"}
 
     print("登录成功----获取token成功")
-    YamlReader().write_yaml({"cookies":token})
+    YamlReader().write_yaml({"cookies": token})
     return token
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session",autouse=True)
 def get_sp_token_qy(init_pools, req_SP, conf_utill):
     print("\n前置步骤----获取核心企业cookie")
     global qy_token
@@ -218,8 +218,30 @@ def get_sp_token_qy(init_pools, req_SP, conf_utill):
     login_res = req_SP.visit(method="POST", url=login_url, json=login_params, headers=headers,
                              cookies=cookies)
     # print(login_res.json())
-    qy_token = login_res.cookies
+    lg_token = login_res.cookies
+    # print(lg_token)
+
+    # 验证码-phoneLogin 环节
+    pl_url = "/sys-web/user/phoneLogin"
+    pl_param = {
+        "userName": username,
+        "password": "1234"
+    }
+    rsp = req_SP.visit(method="POST", url=pl_url, json=pl_param, headers=headers,
+                       cookies=lg_token)
+    pl_token = rsp.cookies
+
     print("登录成功----获取token成功")
+    qy_token = {"cookies":
+                    f"bccpgdhscfdate={pl_token.get('bccpgdhscfdate')};"
+                    f"CURRENT-LOGIN={pl_token.get('CURRENT-LOGIN')};"
+                    f"bccpgdhscf={pl_token.get('bccpgdhscf')};"
+                    f"DOUBLE_CHECK_TOKEN={lg_token.get('DOUBLE_CHECK_TOKEN')};"
+                    f"CAPTCHAID={picCheckCodeKey}"
+                }
+
+    print("登录成功----获取token成功")
+    YamlReader().write_yaml({"qy_cookies": qy_token})
     return qy_token
 
 # if __name__ == '__main__':
