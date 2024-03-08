@@ -1,0 +1,16 @@
+- method: "POST"
+  parameterize:
+    custName-receiver-sceneType-sendStartDate-sendEndDate: /test_data/MessEmail_page_data.yaml
+  http:
+    url: "message-web/messageEmailLog/pageInfo"
+    client: "agw"
+    cookies: ${cookies}
+    json:
+      "current": 1
+      "size": 10
+      "queryCondition":
+        custName: $ddt{custName}
+        receiver: $ddt{receiver}
+        sceneType: $ddt{sceneType}
+        sendStartDate: $ddt{sendStartDate}
+        sendEndDate: $ddt{sendEndDate}

@@ -1,0 +1,8 @@
+- method: "POST"
+  http:
+    url: "spyPc-web/asset/submitApproving"
+    client: "sp"
+    cookies: ${qy_cookies}
+    json:
+      'assetIds':
+        - ${id}

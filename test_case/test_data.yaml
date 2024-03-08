@@ -1,0 +1,8 @@
+  method: "POST"
+  http:
+    url: "message-web/messageEmailLog/pageInfo"
+    cookies: ${cookies}
+    json:
+      current: 1
+      size: 10
+      queryCondition: { }

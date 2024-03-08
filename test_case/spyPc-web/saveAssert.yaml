@@ -1,0 +1,20 @@
+- method: "POST"
+  http:
+    url: "spyPc-web/asset/saveAsset"
+    client: "sp"
+    cookies: ${qy_cookies}
+    json:
+      initiatingSystem: 供应链系统
+      assetNo: null
+      coreCompany: tyl测试开单额度-核心
+      supplierId: '1727578717207359490'
+      assetAmount: '18000'
+      assetDueDate: '2024-12-31'
+      newDate: '2024-05-11'
+      assetContractDTOList: null
+      dataChangeHash: f1lv73rp
+      assetDueDayNum: '20'
+      supplier: yt供应商二号
+  extract:
+    id: $.data.id
+    business_id: $.data.id

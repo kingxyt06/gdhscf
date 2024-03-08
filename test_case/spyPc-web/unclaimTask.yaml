@@ -1,0 +1,18 @@
+- method: "POST"
+  http:
+    url: "workflow-web/wkfl/workbench/unclaim"
+    client: "agw"
+    pre_sql:
+      - SELECT ID_
+        FROM gdhscf_workflow.act_ru_task art
+        INNER JOIN gdhscf_workflow.wkfl_app_main wam ON art.PROC_INST_ID_ = wam.proc_inst_id
+        WHERE wam.business_id = ${business_id}
+    #   - select proc_inst_id from gdhscf_workflow.wkfl_app_main wam where business_id = ${business_id}
+    #   - select ID_ from act_ru_task art inner join gdhscf_workflow.wkfl_app_main wam on art.PROC_INST_ID_ = wam.proc_inst_id where art.PROC_INST_ID_ = '${proc_inst_id}'
+    cookies: ${cookies}
+    params:
+      'taskId':
+        - ${ID_}
+
+
+
