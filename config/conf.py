@@ -9,6 +9,11 @@ current_path = os.path.abspath(__file__)
 BASE_DIR = os.path.dirname(os.path.dirname(current_path))
 config_path = BASE_DIR + os.sep + "config"
 config_file = config_path + os.sep + "config.yaml"
+
+data_dir = os.path.dirname(current_path)
+print(BASE_DIR + os.sep + "test_data")
+
+
 # print(config_file)
 #
 # data_path = BASE_DIR + os.sep + "test_data"

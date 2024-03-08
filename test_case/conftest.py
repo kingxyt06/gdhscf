@@ -150,7 +150,7 @@ def sql_utill(init_pools):
 #     return pools
 
 
-@pytest.fixture(scope="session",autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def get_agw_token(init_pools, req_AGW, conf_utill):
     print("\n前置步骤----获取内管端cookie")
     global token
@@ -185,14 +185,16 @@ def get_agw_token(init_pools, req_AGW, conf_utill):
     token = {"cookies":
                  f"bccpgdhscfdate={token.get('bccpgdhscfdate')};"
                  f"CURRENT-LOGIN={token.get('CURRENT-LOGIN')};"
-                 f"bccpgdhscf={token.get('bccpgdhscf')}"}
+                 f"bccpgdhscf={token.get('bccpgdhscf')};"
+                 f"CAPTCHAID={picCheckCodeKey}"
+             }
 
     print("登录成功----获取token成功")
     YamlReader().write_yaml({"cookies": token})
     return token
 
 
-@pytest.fixture(scope="session",autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def get_sp_token_qy(init_pools, req_SP, conf_utill):
     print("\n前置步骤----获取核心企业cookie")
     global qy_token
@@ -230,8 +232,6 @@ def get_sp_token_qy(init_pools, req_SP, conf_utill):
     rsp = req_SP.visit(method="POST", url=pl_url, json=pl_param, headers=headers,
                        cookies=lg_token)
     pl_token = rsp.cookies
-
-    print("登录成功----获取token成功")
     qy_token = {"cookies":
                     f"bccpgdhscfdate={pl_token.get('bccpgdhscfdate')};"
                     f"CURRENT-LOGIN={pl_token.get('CURRENT-LOGIN')};"

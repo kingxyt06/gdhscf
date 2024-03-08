@@ -5,6 +5,7 @@ import jsonpath as jsonpath
 import requests
 
 from config.conf import ConfigReader
+from utils.MysqlUtil import MySQLClient
 from utils.YamlUtil import YamlReader, read_testcase
 
 
@@ -12,9 +13,15 @@ class RequestU:
     sess = requests.session()
 
     def __init__(self):
+        sqlConf = ConfigReader().get_conf_SqlMessage()
         self.sp_url = ConfigReader().get_conf_sp_url()
         self.base_url = ConfigReader().get_conf_agw_url()
         self.session = requests.session()
+        self.sqlU = MySQLClient(host=sqlConf['mysql-url'],
+                       port=4600,
+                       user="root",
+                       password="123456"
+                       )
 
     def standard_yaml(self, caseinfo):
         # datas = YamlReader().load_data('test_data.yaml')
@@ -58,10 +65,16 @@ class RequestU:
         elif kwargs['client'] == 'sp':
             url = self.sp_url + url
             kwargs.pop('client')
-        for k, v in kwargs.items():
 
+        if 'pre_sql' in kwargs and kwargs['pre_sql'] is not None:
+            kwargs['pre_sql'] = self.replace_value(kwargs['pre_sql'])
+            self.deal_sql(kwargs['pre_sql'])
+            kwargs.pop('pre_sql')
+
+        for k, v in kwargs.items():
             if k in ['cookies', 'header', 'params', 'json']:
                 kwargs[k] = self.replace_value(v)
+
         res = RequestU.sess.request(method, url, **kwargs)
         return res
 
@@ -91,6 +104,17 @@ class RequestU:
 
         # print(f"最后的数据类型是:{type(data)}")
         return data
+
+    def deal_sql(self,yamlSql):
+        if isinstance(yamlSql,list):
+            for i in yamlSql:
+                res = self.sqlU.execute_query(i)
+                # print(res)  [proc_inst_id: '3125721']
+                sql_result = {}
+                if isinstance(res, list):
+                    for item in res:
+                        sql_result.update(item)
+                YamlReader().write_yaml(sql_result)
 
 
 if __name__ == '__main__':

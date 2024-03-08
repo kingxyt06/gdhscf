@@ -41,3 +41,11 @@ class YamlReader:
     def write_yaml(self, data):
         with open(os.getcwd() + '/extract.yaml', encoding='utf-8', mode='a') as f:
             yaml.dump(data, stream=f, allow_unicode=True)
+
+    # 读取data
+    def read_data(self, yaml_name):
+        current_path = os.path.abspath(__file__)
+        BASE_DIR = os.path.dirname(os.path.dirname(current_path))
+        with open(BASE_DIR + yaml_name, mode='r', encoding='utf-8') as f:
+            value = yaml.load(f, yaml.FullLoader)
+            return value
